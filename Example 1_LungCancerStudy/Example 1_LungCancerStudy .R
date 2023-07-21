@@ -25,14 +25,14 @@ rm(Libraries)
 ##################################################################  Reading sample annotation and raw counts #####################
 
 #***** Reading Nanostring gene expression raw data
-Nano_ExpressionMatrix <- read.delim('LungCancer_Nanostring_RawCounts.txt',
+Nano_ExpressionMatrix <- read.delim('Example 1_LungCancerStudy/LungCancer_Nanostring_RawCounts.txt',
                                     stringsAsFactors = FALSE, header = TRUE, as.is = TRUE)
 dim(Nano_ExpressionMatrix) # 614 165
 # all Endogenous genes (600) and Nanostring negative and positive spike-in controls (14)
 
 
 #***** Reading sample and clinical information
-Nano_SampleInfo <- read.delim('LungCancer_Nanostring_SampleInformation.txt',
+Nano_SampleInfo <- read.delim('Example 1_LungCancerStudy/LungCancer_Nanostring_SampleInformation.txt',
                               stringsAsFactors = FALSE, header = TRUE, as.is = TRUE)
 dim(Nano_SampleInfo) # 162  17
 table(Nano_SampleInfo$Tissues)
@@ -444,17 +444,17 @@ Rep$RUV_III <- LogRatio_TechRep_RUVIII$LogRatio
 
 ### Step 5: Generating the Supplementary 3
 Correlation <- HeatmapAnnotation(points = anno_points(bioCor, ylim = c(-.7, .7), pch = 16, size = unit(.5, 'cm'), border = FALSE,
-                                                      cex.axis =  4 , axis = TRUE, axis_side = 'left' ,axis_gp = gpar(fontsize = 16, lwd = 6),
+                                                      cex.axis =  4 , axis = TRUE, axis_side = 'left' ,axis_param = list(gp = gpar(fontsize = 16, lwd = 6)),
                                                       gp = gpar(col = 'darkgreen') ))
 
 Replicates <- HeatmapAnnotation(boxplot = anno_boxplot(Rep, outline = T, ylim = c(-10.5 , 10.5),
-                                                       axis_gp = gpar(fontsize = 16, lwd = 6),pch=21, size = unit(.3, "mm"),
-                                                       axis = TRUE, axis_side = 'left', border = FALSE,
+                                                       axis_param = list(gp = gpar(fontsize = 16, lwd = 6), side = 'left'),pch=21, size = unit(.3, "mm"),
+                                                       axis = TRUE, border = FALSE,
                                                        gp = gpar(col= 'navy', lwd = 3, lty = 1)))
 
-Heatmap(rle, name = '', cluster_columns = FALSE, cluster_rows = FALSE, show_row_names = FALSE,
+Heatmap(rle, name = 'heatmap', cluster_columns = FALSE, cluster_rows = FALSE, show_row_names = FALSE,
         top_annotation = Correlation, bottom_annotation = Replicates,
-        top_annotation_height = unit(7, "cm"), bottom_annotation_height = unit(12, "cm"),
+        # top_annotation_height = unit(7, "cm"), bottom_annotation_height = unit(12, "cm"),
         col = c('firebrick1', 'green', 'black', 'green'),
         column_title = expression(paste('Spearman correlation between ', italic(ERCC1), ' and ', italic(RRM1))),
         row_title = 'Medians of RLE plots',
