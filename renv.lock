@@ -294,6 +294,16 @@
       ],
       "Hash": "7ce2733a9826b3aeb1775d56fd305472"
     },
+    "matrixStats": {
+      "Package": "matrixStats",
+      "Version": "1.0.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R"
+      ],
+      "Hash": "9143629fd64335aac6a6250d1c1ed82a"
+    },
     "mgcv": {
       "Package": "mgcv",
       "Version": "1.9-0",
@@ -384,14 +394,15 @@
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteUsername": "rstudio",
       "RemoteRepo": "renv",
-      "RemoteRef": "main",
+      "RemoteUsername": "rstudio",
+      "RemotePkgRef": "rstudio/renv",
+      "RemoteRef": "c2f626c21ef065c3974c26fcfdd70321ac6c8133",
       "RemoteSha": "c2f626c21ef065c3974c26fcfdd70321ac6c8133",
       "Requirements": [
         "utils"
       ],
-      "Hash": "3f462f523cd66d24610d4fd525e43851"
+      "Hash": "00e05db82e81db4ccb6dfc344b851465"
     },
     "rlang": {
       "Package": "rlang",
@@ -522,6 +533,16 @@
         "withr"
       ],
       "Hash": "79540e5fcd9e0435af547d885f184fd5"
+    },
+    "tuple": {
+      "Package": "tuple",
+      "Version": "0.4-02",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R"
+      ],
+      "Hash": "5df55712139ee01cdd3e556cc8388bb0"
     },
     "utf8": {
       "Package": "utf8",

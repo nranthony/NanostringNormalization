@@ -79,14 +79,14 @@ mtext(expression(paste(Log[2],' (raw counts)')), 2, line = 3.5, cex = 2.7)
 
 #***** RLE plot - Figure 1 A - Unormalized
 par(mar = c(6.5,6.5,2.3,0))
-boxplot(RawCounts_log - rowMedians(RawCounts_log),
+boxplot(RawCounts_log - matrixStats::rowMedians(RawCounts_log),
         main = '', xlab = '', ylab = '', xaxt = 'n', yaxt = 'n', ylim = c(-4.1,4.1),
         outline = FALSE, names = FALSE, frame = FALSE, whisklty = 3, whisklwd = 1.5, staplelty = 1, notch = TRUE, boxlwd = 2,
         staplelwd = 0 , boxcol = Color_Batches[factor(Nano_SampleInfo$Cartridges)],
         border = Color_Batches[factor(Nano_SampleInfo$Cartridges)], col = 'gray87')
 box(lwd = 7, bty = 'l')
 title('Unnormalized counts', line = -2, cex.main = 3.5)
-Median_RawData <- apply(RawCounts_log - rowMedians(RawCounts_log), 2, median)
+Median_RawData <- apply(RawCounts_log - matrixStats::rowMedians(RawCounts_log), 2, median)
 points(c(1:ncol(RawCounts_log)), Median_RawData, col = Color_Batches[factor(Nano_SampleInfo$Cartridges)], pch = 19, cex = 1.2)
 axis(2, mgp = c(3.5, .9 ,0), lwd.ticks=6, las=1, cex.axis=3)
 mtext('RLE', 2, line = 3.5, cex = 3.5)
@@ -135,7 +135,7 @@ rm(X, GradiantColors, Mean_NegativeControlProbes,
 
 
 #***** Log ratio between all pairs of duplicated samples
-DuplicatedSamples <- tuplicate(Nano_SampleInfo$Patient.barcodes, 2)
+DuplicatedSamples <- tuple::tuplicate(Nano_SampleInfo$Patient.barcodes, 2)
 length(DuplicatedSamples) # 17
 
 LogRatio_TechRep_RawCounts <- vector()
@@ -184,13 +184,13 @@ all(colnames(NanostringNormalized) == Nano_SampleInfo$SampleNames) # TRUE
 
 #***** RLE plots - Figure 1 A - nCounter normalization
 par(mar = c(6.5,6.5,2.3,0))
-boxplot(NanostringNormalized - rowMedians(NanostringNormalized), main = '', xlab = '', ylab = '', xaxt = 'n', yaxt = 'n', ylim = c(-4.1,4.1),
+boxplot(NanostringNormalized - matrixStats::rowMedians(NanostringNormalized), main = '', xlab = '', ylab = '', xaxt = 'n', yaxt = 'n', ylim = c(-4.1,4.1),
         outline = FALSE, names = FALSE, frame = FALSE, whisklty = 3, whisklwd = 1.5, staplelty = 1, notch = TRUE, boxlwd = 2,
         staplelwd = 0 , boxcol = Color_Batches[factor(Nano_SampleInfo$Cartridges)],
         border = Color_Batches[factor(Nano_SampleInfo$Cartridges)], col = 'gray87')
 box(lwd = 7, bty = 'l')
 title('nCounter normalized', line = -2, cex.main = 3.5)
-Median_Nano <- apply(NanostringNormalized - rowMedians(NanostringNormalized), 2, median)
+Median_Nano <- apply(NanostringNormalized - matrixStats::rowMedians(NanostringNormalized), 2, median)
 points(c(1:ncol(NanostringNormalized)), Median_Nano, col = Color_Batches[factor(Nano_SampleInfo$Cartridges)], pch = 19, cex = 1.2)
 axis(2, mgp = c(3.5, .9 ,0), lwd.ticks=6, las=1, cex.axis=3)
 mtext('RLE', 2, line = 3.5, cex = 3.5)
@@ -275,13 +275,13 @@ all(colnames(RUVcorrected) == Nano_SampleInfo$SampleNames) ## TRUE
 
 #***** RLE plots - Figure 1 A, RUV-III normalization
 par(mar = c(6.5,6.5,2.3,0))
-boxplot(RUVcorrected - rowMedians(RUVcorrected), main = '', xlab = '', ylab = '', xaxt = 'n', yaxt = 'n', ylim = c(-4.1,4.1),
+boxplot(RUVcorrected - matrixStats::rowMedians(RUVcorrected), main = '', xlab = '', ylab = '', xaxt = 'n', yaxt = 'n', ylim = c(-4.1,4.1),
         outline = FALSE, names = FALSE, frame = FALSE, whisklty = 3, whisklwd = 1.5, staplelty = 1, notch = TRUE, boxlwd = 2,
         staplelwd = 0 , boxcol = Color_Batches[factor(Nano_SampleInfo$Cartridges)],
         border = Color_Batches[factor(Nano_SampleInfo$Cartridges)], col = 'gray87')
 box(lwd = 7, bty = 'l')
 title('RUV-III normalized', line = -2, cex.main = 3.5)
-Median_RUV <- apply(RUVcorrected - rowMedians(RUVcorrected), 2, median)
+Median_RUV <- apply(RUVcorrected - matrixStats::rowMedians(RUVcorrected), 2, median)
 points(c(1:ncol(RUVcorrected)), Median_RUV, col = Color_Batches[factor(Nano_SampleInfo$Cartridges)], pch = 19, cex = 1.2)
 axis(1, cex.axis = 1, at = c(1, seq(20,166,20)), cex.axis = 2.5, lwd.ticks = 6,  mgp = c(3.5,1.6,0))
 axis(2, mgp = c(3.5,.9,0), lwd.ticks = 6, las = 1, cex.axis = 3)
@@ -307,7 +307,7 @@ box(lwd = 6, bty = "l")
 
 #***** Log ratio between technical duplicated
 ### Assessing the perfromance of RUV-III using 'leave out one duplicate'
-DuplicatedSamples <- tuplicate(Nano_SampleInfo$Patient.barcodes, 2)
+DuplicatedSamples <- tuple::tuplicate(Nano_SampleInfo$Patient.barcodes, 2)
 length(DuplicatedSamples) # 17
 LogRatio_TechRep_RUVIII <- vector()
 dataRUV <- t(log2(Nano_RawCounts[1:587, ]))
@@ -395,7 +395,7 @@ for(i in 1:84){
 
   NanoNormalized <- as.matrix(log2(NanoString_mRNA_norm + 1))
   ### RLE transformation
-  MediansOfRLE <- apply( NanoNormalized - rowMedians(NanoNormalized), 2, median)
+  MediansOfRLE <- apply( NanoNormalized - matrixStats::rowMedians(NanoNormalized), 2, median)
   Medians_RLE <- cbind(Medians_RLE, MediansOfRLE)
   ### Correlation between ERRC1 and RRM1
   CancerSamples <- Nano_SampleInfo$Tissues == "Cancer"
@@ -432,7 +432,7 @@ FinalName <- paste(AllOptions$Var1, AllOptions$Var2, AllOptions$HKoptions, sep =
 # RLE
 rle <- as.data.frame(Medians_RLE)
 colnames(rle) <- FinalName
-rle$RUV_III <- apply( RUVcorrected - rowMedians(RUVcorrected) , 2 , median)
+rle$RUV_III <- apply( RUVcorrected - matrixStats::rowMedians(RUVcorrected) , 2 , median)
 
 # Correlation between ERCC1 amd RRM1
 bioCor <- unlist(c(BiologyCor, BioCo_RUV))
